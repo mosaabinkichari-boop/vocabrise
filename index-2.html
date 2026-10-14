@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>VocabRise | تعلّم الإنجليزية</title>
+<style>
+:root{--bg:#0b1220;--panel:#131e30;--panel2:#1a2940;--text:#f3f6fc;--muted:#a8b5ca;--accent:#65e0bd;--accent2:#8aa7ff;--danger:#ff8f9b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1b3150 0,var(--bg) 58%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}
+main{max-width:720px;margin:auto;padding:20px 16px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 22px}.brand{font-size:25px;font-weight:850;letter-spacing:-.7px;direction:ltr}.brand span{color:var(--accent)}.tag{color:var(--muted);font-size:12px}
+h1{font-size:25px;margin:0 0 8px}p{color:var(--muted);line-height:1.65;margin:6px 0 16px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.stat,.panel{background:rgba(19,30,48,.94);border:1px solid #263650;border-radius:18px;padding:15px}.stat strong{display:block;font-size:22px;color:var(--accent)}.stat small{color:var(--muted)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}.tab,button,select,input{font:inherit}.tab,button{border:0;border-radius:12px;padding:12px 10px;cursor:pointer;font-weight:750}.tab{background:var(--panel2);color:var(--muted)}.tab.active{background:var(--accent);color:#08251e}
+.card{min-height:235px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(145deg,#1b2d47,#121d2e);border:1px solid #334765;border-radius:22px;padding:24px;margin:14px 0}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1px}.word{font-size:38px;font-weight:850;direction:ltr;margin:12px 0}.meaning{font-size:25px;font-weight:750}.example{font-size:14px;color:var(--muted);margin-top:14px;direction:ltr}
+.actions{display:flex;gap:10px;margin:12px 0}.actions button{flex:1}.primary{background:var(--accent);color:#08251e}.secondary{background:#263650;color:var(--text)}.outline{background:transparent;color:var(--accent);border:1px solid #3b6e67}
+.quizbox{padding:6px 0}.question{font-size:23px;font-weight:800;direction:ltr;text-align:center;margin:18px 0}.options{display:grid;gap:9px}.option{background:#1c2b41;color:var(--text);border:1px solid #334765;text-align:right}.option:disabled{opacity:1}.option.correct{background:#16483d;border:1px solid var(--accent)}.option.wrong{background:#502b38;border:1px solid var(--danger)}
+input,select{width:100%;background:#0c1626;border:1px solid #334765;border-radius:12px;padding:12px;color:var(--text);margin:6px 0 10px}.wordlist{display:grid;gap:8px;margin-top:12px}.item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#1a2940;border-radius:12px;padding:12px}.item b{direction:ltr}.item span{color:var(--muted)}.tiny{padding:7px 10px;font-size:12px}.hidden{display:none!important}.foot{text-align:center;color:#7e90aa;font-size:12px;margin-top:25px}
+@media(min-width:560px){main{padding-top:30px}.card{min-height:270px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="top"><div><div class="brand">Vocab<span>Rise</span></div><div class="tag">Small words. Big progress.</div></div><div class="tag">🇬🇧 → 🇹🇳</div></header>
+  <h1>طوّر لغتك الإنجليزية يومًا بعد يوم</h1>
+  <p>تعلّم كلمات جديدة، اختبر نفسك، واحتفظ بالكلمات التي تريد مراجعتها.</p>
+  <section class="stats">
+    <div class="stat"><strong id="total">30</strong><small>كلمة للتعلّم</small></div>
+    <div class="stat"><strong id="savedCount">0</strong><small>كلمات محفوظة</small></div>
+    <div class="stat"><strong id="score">0</strong><small>إجابات صحيحة</small></div>
+  </section>
+  <nav class="tabs">
+    <button class="tab active" data-tab="learn">📚 تعلّم</button>
+    <button class="tab" data-tab="quiz">🧠 اختبار</button>
+    <button class="tab" data-tab="saved">⭐ محفوظاتي</button>
+  </nav>
+  <section id="learn" class="panel">
+    <div class="tag" id="counter">الكلمة 1 من 30</div>
+    <div class="card" id="flashcard">
+      <div class="eyebrow">ENGLISH WORD</div><div class="word" id="word">Achieve</div>
+      <div class="meaning" id="meaning">يُحقّق</div><div class="example" id="example">I want to achieve my goals.</div>
+    </div>
+    <div class="actions"><button class="secondary" id="prev">← السابقة</button><button class="primary" id="next">التالية ←</button></div>
+    <button class="outline" style="width:100%" id="save">☆ أضف إلى المحفوظات</button>
+  </section>
+  <section id="quiz" class="panel hidden">
+    <div class="tag">اختر الترجمة الصحيحة</div>
+    <div class="quizbox"><div class="question" id="qword">Achieve</div><div class="options" id="options"></div><p id="feedback" aria-live="polite"></p><button class="primary hidden" id="nextQ" style="width:100%">السؤال التالي</button></div>
+  </section>
+  <section id="saved" class="panel hidden">
+    <h2 style="margin-top:0">الكلمات المحفوظة ⭐</h2><p>تُحفظ على هذا الهاتف والمتصفح.</p><div id="savedList" class="wordlist"></div>
+  </section>
+  <div class="foot">VocabRise • نسخة تجريبية مجانية • Your daily English habit</div>
+</main>
+<script>
+const words=[
+["Achieve","يُحقّق","I want to achieve my goals."],["Improve","يُحسّن","I want to improve my English."],["Learn","يتعلّم","I learn something every day."],["Believe","يؤمن","Believe in yourself."],["Challenge","تحدٍّ","This is a new challenge."],
+["Opportunity","فرصة","This is a great opportunity."],["Success","نجاح","Success takes time."],["Failure","فشل","Failure can teach us."],["Effort","مجهود","Your effort matters."],["Goal","هدف","My goal is to speak English."],
+["Choose","يختار","Choose the best answer."],["Decide","يقرّر","I need to decide today."],["Explain","يشرح","Can you explain this word?"],["Understand","يفهم","I understand the lesson."],["Remember","يتذكّر","Remember this word."],
+["Forget","ينسى","Do not forget your keys."],["Create","يُنشئ","I want to create an app."],["Build","يبني","We can build good habits."],["Change","يغيّر","Small steps can change your life."],["Useful","مفيد","This app is useful."],
+["Confident","واثق","Be confident when you speak."],["Careful","حذر","Be careful on the road."],["Quickly","بسرعة","She learns quickly."],["Usually","عادةً","I usually study at night."],["Although","على الرغم من","Although it was hard, I tried."],
+["Instead","بدلًا من ذلك","Walk instead of taking a taxi."],["Improve","يطوّر / يحسّن","Practice helps you improve."],["Achieve","يحقّق","You can achieve more."],["Knowledge","معرفة","Knowledge is powerful."],["Freedom","حرية","Learning gives you freedom."]
+].map((w,i)=>({id:i,en:w[0],ar:w[1],ex:w[2]}));
+const $=id=>document.getElementById(id);
+let idx=0,quizWord=null,answered=false,correct=Number(localStorage.getItem("vr_score")||0);
+let saved=new Set(JSON.parse(localStorage.getItem("vr_saved")||"[]"));
+function persist(){localStorage.setItem("vr_saved",JSON.stringify([...saved]));localStorage.setItem("vr_score",String(correct));updateStats()}
+function updateStats(){$("total").textContent=words.length;$("savedCount").textContent=saved.size;$("score").textContent=correct}
+function renderWord(){let w=words[idx];$("counter").textContent=`الكلمة ${idx+1} من ${words.length}`;$("word").textContent=w.en;$("meaning").textContent=w.ar;$("example").textContent=w.ex;$("save").textContent=saved.has(w.id)?"★ أُزيلت من المحفوظات؟ اضغط للإزالة":"☆ أضف إلى المحفوظات"}
+$("prev").onclick=()=>{idx=(idx-1+words.length)%words.length;renderWord()};
+$("next").onclick=()=>{idx=(idx+1)%words.length;renderWord()};
+$("save").onclick=()=>{let id=words[idx].id;saved.has(id)?saved.delete(id):saved.add(id);persist();renderWord();renderSaved()};
+function renderSaved(){let list=$("savedList");list.innerHTML="";let arr=words.filter(w=>saved.has(w.id));if(!arr.length){list.innerHTML='<p>لا توجد كلمات محفوظة بعد. اذهب إلى قسم التعلّم واضغط على ☆.</p>';return}arr.forEach(w=>{let d=document.createElement("div");d.className="item";d.innerHTML=`<div><b>${w.en}</b><br><span>${w.ar}</span></div>`;let b=document.createElement("button");b.className="secondary tiny";b.textContent="إزالة";b.onclick=()=>{saved.delete(w.id);persist();renderSaved();renderWord()};d.appendChild(b);list.appendChild(d)})}
+function newQuiz(){answered=false;$("feedback").textContent="";$("nextQ").classList.add("hidden");$("options").innerHTML="";quizWord=words[Math.floor(Math.random()*words.length)];$("qword").textContent=quizWord.en;let opts=[quizWord];while(opts.length<4){let w=words[Math.floor(Math.random()*words.length)];if(!opts.some(o=>o.id===w.id))opts.push(w)}opts.sort(()=>Math.random()-.5);opts.forEach(w=>{let b=document.createElement("button");b.className="option";b.textContent=w.ar;b.onclick=()=>answer(b,w);$("options").appendChild(b)})}
+function answer(btn,w){if(answered)return;answered=true;document.querySelectorAll(".option").forEach(b=>b.disabled=true);if(w.id===quizWord.id){btn.classList.add("correct");$("feedback").textContent="إجابة صحيحة! ممتاز 🎉";correct++}else{btn.classList.add("wrong");document.querySelectorAll(".option").forEach(b=>{if(b.textContent===quizWord.ar)b.classList.add("correct")});$("feedback").textContent="ليس تمامًا. الترجمة الصحيحة: "+quizWord.ar}persist();$("nextQ").classList.remove("hidden")}
+$("nextQ").onclick=newQuiz;
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));["learn","quiz","saved"].forEach(id=>$(id).classList.toggle("hidden",id!==b.dataset.tab));if(b.dataset.tab==="quiz")newQuiz();if(b.dataset.tab==="saved")renderSaved()});
+updateStats();renderWord();renderSaved();newQuiz();
+</script>
+</body></html>
